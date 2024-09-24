@@ -19,4 +19,8 @@ class Address extends Model
         'postal_code',
         'is_default',
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }

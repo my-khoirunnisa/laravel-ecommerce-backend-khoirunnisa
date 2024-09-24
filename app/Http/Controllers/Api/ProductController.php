@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class ProductController extends Controller
 {
+    //index
     public function index(Request $request)
     {
         $products = Product::where('seller_id', $request->user()->id)->with('seller')->get();
@@ -19,6 +20,7 @@ class ProductController extends Controller
         ]);
     }
 
+    //store
     public function store(Request $request)
     {
         $request->validate([
@@ -52,6 +54,7 @@ class ProductController extends Controller
         ], 201);
     }
 
+    //update
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -95,6 +98,7 @@ class ProductController extends Controller
         ]);
     }
 
+    //destroy
     public function destroy($id)
     {
         $product = Product::find($id);

@@ -12,7 +12,7 @@ class AuthController extends Controller
     public function registerSeller(Request $request) {
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required',
             'password' => 'required|string',
             'phone' => 'required|string',
             'address' => 'required|string',
@@ -21,7 +21,7 @@ class AuthController extends Controller
             'city' => 'required|string',
             'district' => 'required|string',
             'postal_code' => 'required|string',
-            'photo' => 'required|image|mimes:jpg,jpeg,png|max:2048'
+            'photo' => 'required'
         ]);
 
         $photo = null;
@@ -106,5 +106,21 @@ class AuthController extends Controller
             'message' => 'User registered',
             'data' => $user,
         ], 201);
+    }
+
+    // update fcm token
+    public function updateFcmToken(Request $request) {
+        $request->validate([
+            'fcm_token' => 'required|string',
+        ]);
+
+        $user = $request->user();
+        $user->fcm_token = $request->fcm_token;
+        $user->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'FCM token updated',
+        ], 200);
     }
 }

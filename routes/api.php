@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CallbackController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,3 +39,21 @@ Route::get('/buyer/stores/{id}/products', [App\Http\Controllers\Api\StoreControl
 
 // livestreaming
 Route::get('/buyer/stores/livestreaming', [App\Http\Controllers\Api\StoreController::class, 'livestreaming'])->middleware('auth:sanctum');
+
+// midtrans
+Route::post('/midtrans/callback', [CallbackController::class, 'callback']);
+
+// check order status
+Route::get('/buyer/orders/{id}/status', [App\Http\Controllers\Api\OrderController::class, 'checkOrderStatus'])->middleware('auth:sanctum');
+
+// get order by id
+Route::get('/buyer/orders/{id}', [App\Http\Controllers\Api\OrderController::class, 'getOrderById'])->middleware('auth:sanctum');
+
+// agora
+Route::post('/agora/token', [App\Http\Controllers\Api\AgoraController::class, 'getToken'])->middleware('auth:sanctum');
+
+// set is livestreaming
+Route::post('/seller/livestreaming', [App\Http\Controllers\Api\StoreController::class, 'setLiveStreaming'])->middleware('auth:sanctum');
+
+// update fcm token
+Route::put('/update-fcm-token', [App\Http\Controllers\Api\AuthController::class, 'updateFcmToken'])->middleware('auth:sanctum');

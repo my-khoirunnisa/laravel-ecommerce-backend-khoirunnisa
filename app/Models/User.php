@@ -31,6 +31,7 @@ class User extends Authenticatable
         'roles',
         'photo',
         'is_livestreaming',
+        'fcm_token',
     ];
 
     /**
@@ -58,5 +59,9 @@ class User extends Authenticatable
 
     public function products() {
         return $this->hasMany(Product::class);
+    }
+
+    public function addresses() {
+        return $this->hasMany(Address::class);
     }
 }
